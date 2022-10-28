@@ -33,7 +33,7 @@ func main() {
 		chromedp.Flag("allow-file-access-from-files", true),
 
 		chromedp.Flag("disable-gpu-compositing", true),
-		chromedp.Flag("incognito", true),
+		//chromedp.Flag("incognito", true),
 
 		chromedp.Flag("disable-gpu-watchdog", true),
 		chromedp.Flag("disable-hang-monitor", true),
@@ -48,12 +48,12 @@ func main() {
 	)
 	defer cancel()
 
-	url := "chrome://gpu"
+	//url := "chrome://gpu"
 
 	dirPath, _ := os.Getwd()
 	log.Println(dirPath)
 
-	// url := fmt.Sprintf("file://%s/index.html", dirPath)
+	url := fmt.Sprintf("file://%s/index.html", dirPath)
 
 	var buf []byte
 	chromedp.Run(
