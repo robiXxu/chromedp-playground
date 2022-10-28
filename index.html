@@ -1,0 +1,35 @@
+<html>
+  <body>
+    <canvas id="c" width="400" height="400" style="border:1px solid #000"></canvas>
+    <script defer>
+    const c = document.getElementById("c");
+    const gl = c.getContext('webgl');
+    gl.enable(gl.SCISSOR_TEST);
+
+    function drawRect(x, y, width, height, color) {
+      gl.scissor(x, y, width, height);
+      // @ts-ignore
+      gl.clearColor(...color);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+    }
+     
+    for (let i = 0; i < 100; ++i) {
+      const x = rand(0, 300);
+      const y = rand(0, 150);
+      const width = rand(0, 300 - x);
+      const height = rand(0, 150 - y);
+      // @ts-ignore
+      drawRect(x, y, width, height, [rand(1), rand(1), rand(1), 1]);
+    }
+     
+     
+    function rand(min, max) {
+      if (max === undefined) {
+        max = min;
+        min = 0;
+      }
+      return Math.random() * (max - min) + min;
+    }
+    </script>
+  </body>
+</html>
