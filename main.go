@@ -32,22 +32,22 @@ func main() {
 		chromedp.DefaultExecAllocatorOptions[:],
 
 		//chromedp.Headless,
-		chromedp.DisableGPU,
+		// chromedp.DisableGPU,
 
 		// chromedp.NoSandbox,
-		chromedp.Flag("font-render-hinting", "none"),
-		chromedp.Flag("ignore-gpu-blocklist", true),
-		chromedp.Flag("enable-accelerated-video-decode", true),
-		chromedp.Flag("enable-gpu-rasterization", true),
+		//chromedp.Flag("font-render-hinting", "none"),
+		//chromedp.Flag("ignore-gpu-blocklist", true),
+		//chromedp.Flag("enable-accelerated-video-decode", true),
+		//chromedp.Flag("enable-gpu-rasterization", true),
 
-		chromedp.Flag("use-gl", "swiftshader"),
-		chromedp.Flag("enable-threaded-compositing", true),
+		// chromedp.Flag("use-gl", "swiftshader"),
+		//chromedp.Flag("enable-threaded-compositing", true),
 
 		chromedp.Flag("allow-insecure-localhost", true),
 		chromedp.Flag("disable-web-security", true),
 		chromedp.Flag("allow-file-access-from-files", true),
 
-		chromedp.Flag("disable-gpu-compositing", true),
+		//chromedp.Flag("disable-gpu-compositing", true),
 		chromedp.Flag("incognito", true),
 
 		chromedp.Flag("disable-gpu-watchdog", true),
