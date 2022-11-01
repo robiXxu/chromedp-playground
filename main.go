@@ -32,7 +32,7 @@ func main() {
 		chromedp.DefaultExecAllocatorOptions[:],
 
 		//chromedp.Headless,
-		//chromedp.DisableGPU,
+		chromedp.DisableGPU,
 
 		// chromedp.NoSandbox,
 		chromedp.Flag("font-render-hinting", "none"),
