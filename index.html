@@ -2,13 +2,13 @@
   <body>
     <canvas id="c" width="400" height="400" style="border:1px solid #000"></canvas>
     <script>
+    window.ready=false;
     const c = document.getElementById("c");
     const gl = c.getContext('webgl');
     gl.enable(gl.SCISSOR_TEST);
 
     function drawRect(x, y, width, height, color) {
       gl.scissor(x, y, width, height);
-      // @ts-ignore
       gl.clearColor(...color);
       gl.clear(gl.COLOR_BUFFER_BIT);
     }
@@ -18,9 +18,9 @@
       const y = rand(0, 150);
       const width = rand(0, 300 - x);
       const height = rand(0, 150 - y);
-      // @ts-ignore
       drawRect(x, y, width, height, [rand(1), rand(1), rand(1), 1]);
     }
+    window.ready = true;
      
      
     function rand(min, max) {

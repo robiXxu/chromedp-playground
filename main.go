@@ -10,12 +10,12 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
-func navAndShot(ctx *context.Context, url string, label string) {
+func navAndShot(ctx *context.Context, queryAction chromedp.QueryAction, url string, label string) {
 	var buf []byte
 	chromedp.Run(
 		*ctx,
 		chromedp.Navigate(url),
-		chromedp.WaitReady("body"),
+		queryAction,
 		chromedp.FullScreenshot(&buf, 90),
 	)
 
@@ -40,7 +40,7 @@ func main() {
 		chromedp.Flag("enable-accelerated-video-decode", true),
 		chromedp.Flag("enable-gpu-rasterization", true),
 
-		// chromedp.Flag("use-gl", "swiftshader"),
+		chromedp.Flag("use-gl", "swiftshader"),
 		chromedp.Flag("enable-threaded-compositing", true),
 
 		chromedp.Flag("allow-insecure-localhost", true),
@@ -70,7 +70,7 @@ func main() {
 
 	webgl := fmt.Sprintf("file://%s/index.html", dirPath)
 
-	navAndShot(&ctx, gpu, "gpu")
-	navAndShot(&ctx, webgl, "webgl")
+	navAndShot(&ctx, chromedp.WaitReady("body"), gpu, "gpu")
+	navAndShot(&ctx, chromedp.WaitReady("body"), webgl, "webgl")
 
 }
