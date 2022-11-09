@@ -6,14 +6,15 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"time"
 
 	"github.com/chromedp/chromedp"
 )
 
-func navAndShot(ctx *context.Context, queryAction chromedp.QueryAction, url string, label string) {
+func navAndShot(ctx context.Context, queryAction chromedp.QueryAction, url string, label string) {
 	var buf []byte
 	chromedp.Run(
-		*ctx,
+		ctx,
 		chromedp.Navigate(url),
 		queryAction,
 		chromedp.FullScreenshot(&buf, 90),
@@ -31,16 +32,19 @@ func main() {
 	args := append(
 		chromedp.DefaultExecAllocatorOptions[:],
 
-		//chromedp.Headless,
+		chromedp.Headless,
 		// chromedp.DisableGPU,
 
-		// chromedp.NoSandbox,
+		chromedp.NoSandbox,
 		//chromedp.Flag("font-render-hinting", "none"),
 		//chromedp.Flag("ignore-gpu-blocklist", true),
 		//chromedp.Flag("enable-accelerated-video-decode", true),
 		//chromedp.Flag("enable-gpu-rasterization", true),
 
-		// chromedp.Flag("use-gl", "swiftshader"),
+		chromedp.Flag("use-gl", "angle"),
+		chromedp.Flag("use-angle", "swiftshader"),
+
+		chromedp.Flag("disable-dev-shm-usage", true),
 		//chromedp.Flag("enable-threaded-compositing", true),
 
 		chromedp.Flag("allow-insecure-localhost", true),
@@ -50,8 +54,8 @@ func main() {
 		//chromedp.Flag("disable-gpu-compositing", true),
 		chromedp.Flag("incognito", true),
 
-		chromedp.Flag("disable-gpu-watchdog", true),
-		chromedp.Flag("disable-hang-monitor", true),
+		//chromedp.Flag("disable-gpu-watchdog", true),
+		//chromedp.Flag("disable-hang-monitor", true),
 		chromedp.Flag("single-process", true),
 	)
 
@@ -63,14 +67,14 @@ func main() {
 	)
 	defer cancel()
 
-	gpu := "chrome://gpu"
+	//gpu := "chrome://gpu"
 
 	dirPath, _ := os.Getwd()
 	log.Println(dirPath)
 
 	webgl := fmt.Sprintf("file://%s/index.html", dirPath)
 
-	navAndShot(&ctx, chromedp.WaitReady("body"), gpu, "gpu")
-	navAndShot(&ctx, chromedp.WaitReady("body"), webgl, "webgl")
+	//navAndShot(&ctx, chromedp.WaitReady("body"), gpu, "gpu")
+	navAndShot(ctx, chromedp.Poll("window.ready===true", nil, chromedp.WithPollingTimeout(2*time.Second)), webgl, "webgl")
 
 }
