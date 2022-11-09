@@ -33,7 +33,7 @@ func main() {
 		chromedp.DefaultExecAllocatorOptions[:],
 
 		chromedp.Headless,
-		// chromedp.DisableGPU,
+		chromedp.DisableGPU,
 
 		chromedp.NoSandbox,
 		//chromedp.Flag("font-render-hinting", "none"),
@@ -67,14 +67,12 @@ func main() {
 	)
 	defer cancel()
 
-	//gpu := "chrome://gpu"
-
 	dirPath, _ := os.Getwd()
 	log.Println(dirPath)
 
 	webgl := fmt.Sprintf("file://%s/index.html", dirPath)
 
-	//navAndShot(&ctx, chromedp.WaitReady("body"), gpu, "gpu")
+	navAndShot(ctx, chromedp.WaitReady("body"), "chrome://gpu", "gpu")
 	navAndShot(ctx, chromedp.Poll("window.ready===true", nil, chromedp.WithPollingTimeout(2*time.Second)), webgl, "webgl")
 
 }
