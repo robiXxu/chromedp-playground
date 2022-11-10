@@ -33,7 +33,7 @@ func main() {
 		chromedp.DefaultExecAllocatorOptions[:],
 
 		chromedp.Headless,
-		//chromedp.DisableGPU,
+		chromedp.DisableGPU,
 
 		chromedp.NoSandbox,
 		//chromedp.Flag("font-render-hinting", "none"),
@@ -42,10 +42,12 @@ func main() {
 		//chromedp.Flag("enable-gpu-rasterization", true),
 
 		chromedp.Flag("use-gl", "angle"),
+		//chromedp.Flag("use-gl", "swiftshader-webgl"),
+		//chromedp.Flag("use-angle", "swiftshader"),
 		chromedp.Flag("use-angle", "swiftshader"),
 
-		chromedp.Flag("disable-dev-shm-usage", true),
-		//chromedp.Flag("enable-threaded-compositing", true),
+		//chromedp.Flag("disable-dev-shm-usage", true),
+		chromedp.Flag("enable-threaded-compositing", true),
 
 		chromedp.Flag("allow-insecure-localhost", true),
 		chromedp.Flag("disable-web-security", true),
@@ -56,7 +58,7 @@ func main() {
 
 		//chromedp.Flag("disable-gpu-watchdog", true),
 		//chromedp.Flag("disable-hang-monitor", true),
-		chromedp.Flag("single-process", true),
+		//chromedp.Flag("single-process", true),
 	)
 
 	allocatorCtx, cancel := chromedp.NewExecAllocator(context.Background(), args...)
